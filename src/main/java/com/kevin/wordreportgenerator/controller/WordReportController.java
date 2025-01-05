@@ -28,7 +28,7 @@ public class WordReportController {
             if (request.getData() == null || request.getData().isEmpty()) {
                 return ResponseEntity.badRequest().body("报告数据不能为空");
             }
-            if (request.getTemplateContent() == null
+            if (request.getTemplateBase64() == null
                     && (request.getTemplatePath() == null || request.getTemplatePath().isEmpty())) {
                 return ResponseEntity.badRequest().body("模板内容或路径不能为空");
             }

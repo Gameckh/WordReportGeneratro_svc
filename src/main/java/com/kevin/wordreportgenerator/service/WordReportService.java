@@ -50,15 +50,17 @@ public class WordReportService {
                 Map<String, Object> data = request.getData().get(i);
                 String outputPath = tempPath + File.separator + reportName + "_" + (i + 1) + ".docx";
 
-                // 使用 poi-tl 配置模板
+                // 使用 poi-tl 配置模板（暂时不用）
                 Configure config = Configure.builder()
                         .useSpringEL()
                         .build();
 
                 // 创建模板对象
                 XWPFTemplate template;
-                if (request.getTemplateContent() != null) {
-                    template = XWPFTemplate.compile(new ByteArrayInputStream(request.getTemplateContent()));
+                if (request.getTemplateBase64() != null) {
+                    template = XWPFTemplate.compile(new ByteArrayInputStream(
+                            Base64ToFile.decodeDocx(request.getTemplateBase64())
+                    ));
                 } else {
                     template = XWPFTemplate.compile(request.getTemplatePath());
                 }
